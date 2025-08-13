@@ -79,6 +79,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+This package is a revamp of the archived [react-mesh-gradient](https://www.npmjs.com/package/react-mesh-gradient) package.
+
 ![Example of a Wireframe Mesh Gradient][product-screenshot]
 ![Example of a regular gradient][product-screenshot2]
 
