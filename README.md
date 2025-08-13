@@ -26,7 +26,7 @@
     <a href="https://github.com/Codemaine/React-Mesh-Gradient"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://Codemaine.github.io/React-Mesh-Gradient/">View Demo</a>
+    <a href="https://codesandbox.io/p/github/Codemaine/React-Mesh-Gradient/master?import=true">View Demo</a>
     ·
     <a href="https://github.com/Codemaine/React-Mesh-Gradient/issues">Report Bug</a>
     ·
