@@ -311,6 +311,31 @@ const PausedGradient = () => {
 }
 ```
 
+### Loading 
+
+The gradient has a `loading` state to show a loading overlay while it's being prepared. This is useful for providing feedback when gradients are heavy or when you want to highlight initialisation.
+
+```tsx
+import { useState, useEffect } from 'react';
+
+const LoadingGradient = () => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setLoading(false), 2000); // simulate loading
+        return () => clearTimeout(timer);
+    }, []);
+
+    return (
+        <MeshGradientRenderer
+            colors={["#C3E4FF", "#6EC3F4", "#EAE2FF", "#B9BEFF", "#B3B8F9"]}
+            loading={loading}
+            paused={loading} // optional: pause gradient while loading
+        />
+    );
+}
+```
+
 This package is an improved version of the archived [react-mesh-gradient](https://www.npmjs.com/package/react-mesh-gradient) package.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -328,6 +353,8 @@ This package is an improved version of the archived [react-mesh-gradient](https:
 `pauseWhenNotInView` - Whether or not to pause the gradient when it is not in view.
 
 `idleTime` - The time in seconds to wait before pausing the gradient due to inactivity.
+
+`loading` - Boolean indicating whether the gradient is loading. While `true`, you can display a loading overlay.
 
 `backgroundColor` - The background color of the gradient. The color should be in hex string.
 
@@ -364,7 +391,7 @@ This package is an improved version of the archived [react-mesh-gradient](https:
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Work on reducing bundle size
+<!-- - [ ] Work on reducing bundle size -->
 - [ ] Allow for a customizable # of colors (right now you _must_ use 5)
 
 

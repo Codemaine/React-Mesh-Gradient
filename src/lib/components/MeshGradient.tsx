@@ -77,6 +77,7 @@ interface MeshGradientProps {
   // Update handler for the gradient. Will be called with the native Three.JS Event object.
   onGradientPropsUpdate?: (e: THREE.Event) => void;
   paused?: boolean;
+  loading?: boolean;
 }
 
 /**
@@ -202,6 +203,10 @@ function MeshGradientRaw({
  * 
  */
 interface MeshGradientRendererProps extends React.HTMLAttributes<HTMLDivElement>, MeshGradientProps {
+  // The loading state of the gradient.
+  loading?: boolean;
+  // The callback for when the loading state changes.
+  onLoading?: (loading: boolean) => void;
   // The width of the gradient. The width should be a string that can be parsed by the CSS parser.
   width?: string;
   // The height of the gradient. The height should be a string that can be parsed by the CSS parser.
@@ -230,13 +235,20 @@ const MeshGradientRenderer: React.FunctionComponent<MeshGradientRendererProps> =
   onGradientPointerDown, onGradientPointerOver, onGradientPointerOut,
   onGradientPointerEnter, onGradientPointerLeave, onGradientPointerMove,
   onGradientPropsUpdate, style, children, paused,
-  pauseWhenNotInView = false, idleTime = 0,
+  pauseWhenNotInView = false, idleTime = 0, loading = false, onLoading,
   ...containerProps
 }) => {
 
   const containerRef = useRef<HTMLDivElement>(null!)
   const [isPaused, setIsPaused] = useState(paused);
+  const [isLoading, setIsLoading] = useState(loading);
   const timerRef = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    if (onLoading) {
+      onLoading(isLoading);
+    }
+  }, [isLoading, onLoading]);
 
   const resetTimer = () => {
     if (idleTime === 0) return;
@@ -344,6 +356,7 @@ const MeshGradientRenderer: React.FunctionComponent<MeshGradientRendererProps> =
             onGradientPointerEnter={onGradientPointerEnter} onGradientPointerLeave={onGradientPointerLeave}
             onGradientPointerMove={onGradientPointerMove} onGradientPropsUpdate={onGradientPropsUpdate}
             paused={isPaused}
+            loading={isLoading}
           />
         </Canvas>
       </div>

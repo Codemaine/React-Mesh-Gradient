@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MeshGradientRenderer } from '../lib';
 import { Stats } from '@react-three/drei';
 import './App.css';
@@ -15,6 +15,13 @@ function App() {
   const [isPaused, setIsPaused] = useState(false);
   const [pauseWhenNotInView, setPauseWhenNotInView] = useState(false);
   const [idleTime, setIdleTime] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate loading phase
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2000); // 2 seconds fake load
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="app-container">
@@ -29,14 +36,24 @@ function App() {
           idleTime={idleTime}
           backgroundColor={"#000000"}
           backgroundOpacity={0.8}
+          loading={isLoading} // <-- NEW PROP
           onGradientClick={() => setColorIndex((colorIndex + 1) % palettes.length)}
         />
+        {isLoading && (
+          <div className="loading-overlay">
+            <div className="spinner"></div>
+            <p>Loading gradient...</p>
+          </div>
+        )}
         <div className="stats-container">
           <Stats />
         </div>
       </div>
+
+      {/* Controls */}
       <div className="controls-container">
         <h1>React Mesh Gradient</h1>
+        <p>Demonstrating loading, pausing, and dynamic palette switching.</p>
         <div className="control-group">
           <button onClick={() => setColorIndex((colorIndex + 1) % palettes.length)}>Switch Palette</button>
         </div>
@@ -53,29 +70,27 @@ function App() {
           />
         </div>
         <div className="control-group">
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              id="wireframe"
-              checked={isWireframe}
-              onChange={() => setIsWireframe(!isWireframe)}
-            />
-            <label htmlFor="wireframe">Wireframe</label>
-          </div>
+          <input
+            type="checkbox"
+            id="wireframe"
+            checked={isWireframe}
+            onChange={() => setIsWireframe(!isWireframe)}
+          />
+          <label htmlFor="wireframe">Wireframe</label>
         </div>
         <div className="control-group">
-          <button onClick={() => setIsPaused(!isPaused)}>{isPaused ? 'Resume' : 'Pause'}</button>
+          <button onClick={() => setIsPaused(!isPaused)}>
+            {isPaused ? 'Resume' : 'Pause'}
+          </button>
         </div>
         <div className="control-group">
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              id="pauseWhenNotInView"
-              checked={pauseWhenNotInView}
-              onChange={() => setPauseWhenNotInView(!pauseWhenNotInView)}
-            />
-            <label htmlFor="pauseWhenNotInView">Pause when not in view</label>
-          </div>
+          <input
+            type="checkbox"
+            id="pauseWhenNotInView"
+            checked={pauseWhenNotInView}
+            onChange={() => setPauseWhenNotInView(!pauseWhenNotInView)}
+          />
+          <label htmlFor="pauseWhenNotInView">Pause when not in view</label>
         </div>
         <div className="control-group">
           <label htmlFor="idleTime">Idle Time (seconds)</label>
@@ -97,7 +112,3 @@ function App() {
 }
 
 export default App;
-
-
-
-

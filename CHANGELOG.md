@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http.keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.0] - 2025-08-13
+
+### Added
+
+- Added `loading` prop to `MeshGradientRenderer` to indicate when the gradient is loading
+- Added optional loading overlay support in demo app
+- Added smooth fade-in animation when gradient finishes loading
+
+### Changed
+
+- Updated demo site to showcase loading state and interactivity controls
+- Minor styling improvements for controls and overlay
+
 ## [2.0.0] - 2025-08-13
 
 ### Added
