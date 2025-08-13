@@ -14,7 +14,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/c0demaine/React-Mesh-Gradient">
+  <a href="https://github.com/Codmaine/React-Mesh-Gradient">
     <img src="logo.svg" alt="Logo" width="100" height="100">
   </a>
 
@@ -23,14 +23,14 @@
   <p align="center">
     Create beautiful and interactive gradients with React.JS
     <br />
-    <a href="https://github.com/c0demaine/React-Mesh-Gradient"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Codmaine/React-Mesh-Gradient"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://c0demaine.github.io/React-Mesh-Gradient/">View Demo</a>
+    <a href="https://Codmaine.github.io/React-Mesh-Gradient/">View Demo</a>
     ·
-    <a href="https://github.com/c0demaine/React-Mesh-Gradient/issues">Report Bug</a>
+    <a href="https://github.com/Codmaine/React-Mesh-Gradient/issues">Report Bug</a>
     ·
-    <a href="https://github.com/c0demaine/React-Mesh-Gradient/issues">Request Feature</a>
+    <a href="https://github.com/Codmaine/React-Mesh-Gradient/issues">Request Feature</a>
   </p>
 </div>
 
@@ -368,7 +368,7 @@ This package is an improved version of the archived [react-mesh-gradient](https:
 - [ ] Allow for a customizable # of colors (right now you _must_ use 5)
 
 
-See the [open issues](https://github.com/c0demaine/React-Mesh-Gradient/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/Codmaine/React-Mesh-Gradient/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -402,9 +402,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Jermaine Antwi - [@c0demaine](https://twitter.com/c0demaine)
+Jermaine Antwi - [@Codmaine](https://twitter.com/Codmaine)
 
-Project Link: [https://github.com/c0demaine/React-Mesh-Gradient](https://github.com/c0demaine/React-Mesh-Gradient)
+Project Link: [https://github.com/Codmaine/React-Mesh-Gradient](https://github.com/Codmaine/React-Mesh-Gradient)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -422,16 +422,16 @@ Project Link: [https://github.com/c0demaine/React-Mesh-Gradient](https://github.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
-[contributors-url]: https://github.com/c0demaine/React-Mesh-Gradient/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
-[forks-url]: https://github.com/c0demaine/React-Mesh-Gradient/network/members
-[stars-shield]: https://img.shields.io/github/stars/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
-[stars-url]: https://github.com/c0demaine/React-Mesh-Gradient/stargazers
-[issues-shield]: https://img.shields.io/github/issues/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
-[issues-url]: https://github.com/c0demaine/React-Mesh-Gradient/issues
-[license-shield]: https://img.shields.io/github/license/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
-[license-url]: https://github.com/c0demaine/React-Mesh-Gradient/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/Codmaine/React-Mesh-Gradient.svg?style=for-the-badge
+[contributors-url]: https://github.com/Codmaine/React-Mesh-Gradient/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Codmaine/React-Mesh-Gradient.svg?style=for-the-badge
+[forks-url]: https://github.com/Codmaine/React-Mesh-Gradient/network/members
+[stars-shield]: https://img.shields.io/github/stars/Codmaine/React-Mesh-Gradient.svg?style=for-the-badge
+[stars-url]: https://github.com/Codmaine/React-Mesh-Gradient/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Codmaine/React-Mesh-Gradient.svg?style=for-the-badge
+[issues-url]: https://github.com/Codmaine/React-Mesh-Gradient/issues
+[license-shield]: https://img.shields.io/github/license/Codmaine/React-Mesh-Gradient.svg?style=for-the-badge
+[license-url]: https://github.com/Codmaine/React-Mesh-Gradient/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/jermaine-antwi/
 [product-screenshot]: https://i.imgur.com/uiAtYHB.png

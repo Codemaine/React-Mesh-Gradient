@@ -87,7 +87,7 @@ function App() {
           />
         </div>
         <footer>
-          <p>Created by <a href="https://github.com/c0demaine" target="_blank" rel="noopener noreferrer">c0demaine</a></p>
+          <p>Created by <a href="https://github.com/Codmaine" target="_blank" rel="noopener noreferrer">Codmaine</a></p>
           <p><a href="https://github.com/JohnnyLeek1/React-Mesh-Gradient" target="_blank" rel="noopener noreferrer">View on GitHub</a></p>
         </footer>
       </div>
