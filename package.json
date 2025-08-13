@@ -1,12 +1,12 @@
 {
-  "name": "@Codmaine/react-mesh-gradient",
+  "name": "react-mesh-gradient",
   "author": "Jermaine Antwi",
   "version": "2.0.0",
   "type": "module",
-  "homepage": "https://github.com/Codmaine/React-Mesh-Gradient",
+  "homepage": "https://github.com/Codemaine/React-Mesh-Gradient",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Codmaine/React-Mesh-Gradient"
+    "url": "https://github.com/Codemaine/React-Mesh-Gradient"
   },
   "readme": "README.md",
   "scripts": {
