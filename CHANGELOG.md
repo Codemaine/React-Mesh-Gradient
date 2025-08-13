@@ -1,8 +1,21 @@
 # Change Log
 All notable changes to this project will be documented in this file.
  
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
+The format is based on [Keep a Changelog](http.keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [2.0.0] - 2025-08-13
+
+### Added
+
+- Added `paused` prop to pause the gradient
+- Added `pauseWhenNotInView` prop to pause the gradient when it's not in view
+- Added `idleTime` prop to pause the gradient after a period of inactivity
+
+### Changed
+
+- Redesigned render engine for efficiency
+- Redesigned demo site
 
 ## [1.1.0] - 2023-04-13
 

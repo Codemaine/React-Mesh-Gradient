@@ -14,7 +14,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/JohnnyLeek1/React-Mesh-Gradient">
+  <a href="https://github.com/c0demaine/React-Mesh-Gradient">
     <img src="logo.svg" alt="Logo" width="100" height="100">
   </a>
 
@@ -23,14 +23,14 @@
   <p align="center">
     Create beautiful and interactive gradients with React.JS
     <br />
-    <a href="https://github.com/JohnnyLeek1/React-Mesh-Gradient"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/c0demaine/React-Mesh-Gradient"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://codesandbox.io/p/sandbox/purple-worker-hur815?file=%2Fsrc%2FApp.tsx">View Demo</a>
+    <a href="https://c0demaine.github.io/React-Mesh-Gradient/">View Demo</a>
     ·
-    <a href="https://github.com/JohnnyLeek1/React-Mesh-Gradient/issues">Report Bug</a>
+    <a href="https://github.com/c0demaine/React-Mesh-Gradient/issues">Report Bug</a>
     ·
-    <a href="https://github.com/JohnnyLeek1/React-Mesh-Gradient/issues">Request Feature</a>
+    <a href="https://github.com/c0demaine/React-Mesh-Gradient/issues">Request Feature</a>
   </p>
 </div>
 
@@ -59,6 +59,9 @@
             <li><a href="#wireframe-mode">Wireframe mode</a></li>
             <li><a href="#adding-interactivity">Adding interactivity</a></li>
             <li><a href="#custom-pointer-events">Custom Pointer Events</a></li>
+            <li><a href="#pausing-the-gradient">Pausing the gradient</a></li>
+            <li><a href="#pausing-when-not-in-view">Pausing when not in view</a></li>
+            <li><a href="#pausing-after-a-period-of-inactivity">Pausing after a period of inactivity</a></li>
         </ul>
     </li>
     <li><a href="#current-props-available">Current props available</li>
@@ -232,6 +235,80 @@ const GradientClick = () => {
 }
 ```
 
+### Pausing the gradient
+
+The gradient can be paused by setting the `paused` prop to true. This is useful if you want to pause the gradient when a user is interacting with another part of your application.
+
+```tsx
+import { useState } from 'react';
+
+const PausedGradient = () => {
+    const [isPaused, setIsPaused] = useState(false);
+
+    return (
+        <div>
+            <MeshGradientRenderer
+                colors={[
+                    "#C3E4FF", 
+                    "#6EC3F4", 
+                    "#EAE2FF", 
+                    "#B9BEFF", 
+                    "#B3B8F9"
+                ]}
+                paused={isPaused}
+            />
+            <button onClick={() => setIsPaused(!isPaused)}>{isPaused ? "Resume" : "Pause"}</button>
+        </div>
+    );
+}
+```
+
+### Pausing when not in view
+
+The gradient can be paused when it is not in view by setting the `pauseWhenNotInView` prop to true. This is useful for saving resources when the gradient is not visible to the user.
+
+```tsx
+const PausedGradient = () => {
+    return (
+        <div>
+            <MeshGradientRenderer
+                colors={[
+                    "#C3E4FF", 
+                    "#6EC3F4", 
+                    "#EAE2FF", 
+                    "#B9BEFF", 
+                    "#B3B8F9"
+                ]}
+                pauseWhenNotInView={true}
+            />
+        </div>
+    );
+}
+```
+
+### Pausing after a period of inactivity
+
+The gradient can be paused after a period of inactivity by setting the `idleTime` prop to the number of seconds to wait before pausing the gradient. This is useful for saving resources when the user is not interacting with the page.
+
+```tsx
+const PausedGradient = () => {
+    return (
+        <div>
+            <MeshGradientRenderer
+                colors={[
+                    "#C3E4FF", 
+                    "#6EC3F4", 
+                    "#EAE2FF", 
+                    "#B9BEFF", 
+                    "#B3B8F9"
+                ]}
+                idleTime={5}
+            />
+        </div>
+    );
+}
+```
+
 _For more examples, please refer to the [Documentation]()_ (coming soon)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -243,6 +320,12 @@ _For more examples, please refer to the [Documentation]()_ (coming soon)
 `wireframe` - Whether or not the gradient should be rendered in wireframe mode.
 
 `speed` - The speed at which the gradient should move. The speed should be a number between 0 and 1.
+
+`paused` - Whether or not the gradient is paused.
+
+`pauseWhenNotInView` - Whether or not to pause the gradient when it is not in view.
+
+`idleTime` - The time in seconds to wait before pausing the gradient due to inactivity.
 
 `backgroundColor` - The background color of the gradient. The color should be in hex string.
 
@@ -283,7 +366,7 @@ _For more examples, please refer to the [Documentation]()_ (coming soon)
 - [ ] Allow for a customizable # of colors (right now you _must_ use 5)
 
 
-See the [open issues](https://github.com/JohnnyLeek1/React-Mesh-Gradient/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/c0demaine/React-Mesh-Gradient/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -317,9 +400,9 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Johnny Leek - [LinkedIn][linkedin-url]
+Jermaine Antwi - [@c0demaine](https://twitter.com/c0demaine)
 
-Project Link: [https://github.com/JohnnyLeek1/React-Mesh-Gradient](https://github.com/JohnnyLeek1/React-Mesh-Gradient)
+Project Link: [https://github.com/c0demaine/React-Mesh-Gradient](https://github.com/c0demaine/React-Mesh-Gradient)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -337,18 +420,18 @@ Project Link: [https://github.com/JohnnyLeek1/React-Mesh-Gradient](https://githu
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/JohnnyLeek1/React-Mesh-Gradient.svg?style=for-the-badge
-[contributors-url]: https://github.com/JohnnyLeek1/React-Mesh-Gradient/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/JohnnyLeek1/React-Mesh-Gradient.svg?style=for-the-badge
-[forks-url]: https://github.com/JohnnyLeek1/React-Mesh-Gradient/network/members
-[stars-shield]: https://img.shields.io/github/stars/JohnnyLeek1/React-Mesh-Gradient.svg?style=for-the-badge
-[stars-url]: https://github.com/JohnnyLeek1/React-Mesh-Gradient/stargazers
-[issues-shield]: https://img.shields.io/github/issues/JohnnyLeek1/React-Mesh-Gradient.svg?style=for-the-badge
-[issues-url]: https://github.com/JohnnyLeek1/React-Mesh-Gradient/issues
-[license-shield]: https://img.shields.io/github/license/JohnnyLeek1/React-Mesh-Gradient.svg?style=for-the-badge
-[license-url]: https://github.com/JohnnyLeek1/React-Mesh-Gradient/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
+[contributors-url]: https://github.com/c0demaine/React-Mesh-Gradient/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
+[forks-url]: https://github.com/c0demaine/React-Mesh-Gradient/network/members
+[stars-shield]: https://img.shields.io/github/stars/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
+[stars-url]: https://github.com/c0demaine/React-Mesh-Gradient/stargazers
+[issues-shield]: https://img.shields.io/github/issues/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
+[issues-url]: https://github.com/c0demaine/React-Mesh-Gradient/issues
+[license-shield]: https://img.shields.io/github/license/c0demaine/React-Mesh-Gradient.svg?style=for-the-badge
+[license-url]: https://github.com/c0demaine/React-Mesh-Gradient/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/johnny-leek
+[linkedin-url]: https://www.linkedin.com/in/jermaine-antwi/
 [product-screenshot]: https://i.imgur.com/uiAtYHB.png
 [product-screenshot2]: https://i.imgur.com/NdfFwqB.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
