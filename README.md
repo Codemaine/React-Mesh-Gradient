@@ -309,7 +309,7 @@ const PausedGradient = () => {
 }
 ```
 
-_For more examples, please refer to the [Documentation]()_ (coming soon)
+This package is an improved version of the archived [react-mesh-gradient](https://www.npmjs.com/package/react-mesh-gradient) package.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
