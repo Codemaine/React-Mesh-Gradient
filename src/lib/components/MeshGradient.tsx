@@ -9,7 +9,7 @@
  * 
  */
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
@@ -76,6 +76,7 @@ interface MeshGradientProps {
   onGradientPointerMove?: (e: THREE.Event) => void;
   // Update handler for the gradient. Will be called with the native Three.JS Event object.
   onGradientPropsUpdate?: (e: THREE.Event) => void;
+  paused?: boolean;
 }
 
 /**
@@ -83,18 +84,21 @@ interface MeshGradientProps {
  * @param {MeshGradientProps} props - {@link MeshGradientProps}
  * @returns A mesh containing the MeshGradient
  */
-function MeshGradient({
+const MeshGradient = React.memo(MeshGradientRaw);
+
+function MeshGradientRaw({
   colors, wireframe = false, speed = 0.01, backgroundColor = "#FFFFFF",
   backgroundOpacity = 1.0, onGradientClick, onGradientContextMenu,
   onGradientDoubleClick, onGradientWheel, onGradientPointerUp,
   onGradientPointerDown, onGradientPointerOver, onGradientPointerOut,
   onGradientPointerEnter, onGradientPointerLeave, onGradientPointerMove,
-  onGradientPropsUpdate
+  onGradientPropsUpdate, paused = false
 }: MeshGradientProps) {
 
   // Store a ref to the mesh and shader material
   const meshRef = useRef<THREE.Mesh>(null!);
   const shaderRef = useRef<THREE.ShaderMaterial>(null!);
+  const geometryRef = useRef<THREE.PlaneGeometry>(null!);
 
   // Access the Three renderer so that we can modify its properties on initialization
   const renderer = useThree(state => state.gl);
@@ -103,7 +107,7 @@ function MeshGradient({
   const [time, setTime] = useState(0);
 
   // Map hex colors to Three.Color objects
-  const colorPalette = colors.map((color) => new THREE.Color(color as THREE.ColorRepresentation));
+  const colorPalette = useMemo(() => colors.map((color) => new THREE.Color(color as THREE.ColorRepresentation)), [colors]);
 
   // When the component is rendered, set the Three.JS renderer properties
   useEffect(() => {
@@ -114,12 +118,23 @@ function MeshGradient({
     renderer.useLegacyLights = true;
     renderer.outputEncoding = THREE.sRGBEncoding;
 
-    return () => renderer.dispose();
+    return () => {
+      renderer.dispose();
+      if (geometryRef.current) {
+        geometryRef.current.dispose();
+      }
+      if (shaderRef.current) {
+        shaderRef.current.dispose();
+      }
+    }
 
   });
 
   // Every frame, update the time with the current speed, multiplied by the delta time (to ensure a consistent rate across all devices)
-  useFrame((_, delta) => (setTime(time + speed * delta)));
+  useFrame((_, delta) => {
+    if (paused) return;
+    setTime(time + speed * delta);
+  });
 
   /**
    * Render a mesh at the origin.
@@ -148,7 +163,7 @@ function MeshGradient({
       onPointerMove={onGradientPointerMove ? (e) => onGradientPointerMove(e) : undefined}
       onUpdate={onGradientPropsUpdate ? (e) => onGradientPropsUpdate(e) : undefined}
     >
-      <planeGeometry args={[1, 1, 500, 500]} />
+      <planeGeometry ref={geometryRef} args={[1, 1, 500, 500]} />
       <shaderMaterial
         extensions={{
           derivatives: true,
@@ -165,7 +180,6 @@ function MeshGradient({
         wireframe={wireframe}
         vertexShader={vertex}
         fragmentShader={fragment}
-        key={Math.random()}
       />
     </mesh>
 
@@ -196,6 +210,10 @@ interface MeshGradientRendererProps extends React.HTMLAttributes<HTMLDivElement>
   style?: React.CSSProperties;
   // The children of the gradient. The children should be a React element.
   children?: React.ReactNode;
+  // Whether or not to pause the gradient when it is not in view
+  pauseWhenNotInView?: boolean;
+  // The time in seconds to wait before pausing the gradient due to inactivity
+  idleTime?: number;
 }
 
 /**
@@ -211,13 +229,109 @@ const MeshGradientRenderer: React.FunctionComponent<MeshGradientRendererProps> =
   onGradientDoubleClick, onGradientWheel, onGradientPointerUp,
   onGradientPointerDown, onGradientPointerOver, onGradientPointerOut,
   onGradientPointerEnter, onGradientPointerLeave, onGradientPointerMove,
-  onGradientPropsUpdate, style, children,
+  onGradientPropsUpdate, style, children, paused,
+  pauseWhenNotInView = false, idleTime = 0,
   ...containerProps
 }) => {
 
+  const containerRef = useRef<HTMLDivElement>(null!)
+  const [isPaused, setIsPaused] = useState(paused);
+  const timerRef = useRef<NodeJS.Timeout>();
+
+  const resetTimer = () => {
+    if (idleTime === 0) return;
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      console.log("Gradient paused due to inactivity");
+      setIsPaused(true);
+    }, idleTime * 1000);
+  }
+
+  useEffect(() => {
+    if (idleTime === 0) return;
+    window.addEventListener("mousemove", resetTimer);
+    window.addEventListener("mousedown", resetTimer);
+    window.addEventListener("keypress", resetTimer);
+    window.addEventListener("scroll", resetTimer);
+    window.addEventListener("touchstart", resetTimer);
+
+    resetTimer();
+
+    return () => {
+      window.removeEventListener("mousemove", resetTimer);
+      window.removeEventListener("mousedown", resetTimer);
+      window.removeEventListener("keypress", resetTimer);
+      window.removeEventListener("scroll", resetTimer);
+      window.removeEventListener("touchstart", resetTimer);
+      clearTimeout(timerRef.current);
+    }
+  }, [idleTime]);
+
+  useEffect(() => {
+    console.log(paused ? "Gradient paused" : "Gradient resumed");
+    setIsPaused(paused);
+  }, [paused]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        console.log("Gradient paused due to tab inactivity");
+        setIsPaused(true);
+      } else {
+        console.log("Gradient resumed due to tab activity");
+        setIsPaused(false);
+      }
+    }
+
+    const handleBlur = () => {
+      console.log("Gradient paused due to window blur");
+      setIsPaused(true);
+    }
+
+    const handleFocus = () => {
+      console.log("Gradient resumed due to window focus");
+      setIsPaused(false);
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("focus", handleFocus);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!pauseWhenNotInView) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        console.log("Gradient resumed");
+        setIsPaused(false);
+      } else {
+        console.log("Gradient paused");
+        setIsPaused(true);
+      }
+    });
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    }
+  }, [pauseWhenNotInView]);
+
   return (
     <>
-      <div style={{ position: "absolute", zIndex: -1, ...style }} {...containerProps} >
+      <div ref={containerRef} style={{ position: "absolute", zIndex: -1, ...style }} {...containerProps} >
         <Canvas>
           <PerspectiveCamera makeDefault manual position={new THREE.Vector3(0, 0, 0.5)} near={0.001} far={1000} />
           <MeshGradient
@@ -229,6 +343,7 @@ const MeshGradientRenderer: React.FunctionComponent<MeshGradientRendererProps> =
             onGradientPointerOver={onGradientPointerOver} onGradientPointerOut={onGradientPointerOut}
             onGradientPointerEnter={onGradientPointerEnter} onGradientPointerLeave={onGradientPointerLeave}
             onGradientPointerMove={onGradientPointerMove} onGradientPropsUpdate={onGradientPropsUpdate}
+            paused={isPaused}
           />
         </Canvas>
       </div>
